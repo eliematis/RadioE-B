@@ -1,6 +1,6 @@
-//ajout de la fausse API aec tous les liens des radios aléatoires//
-
 let radio;
+let img1;
+
 const radioCategories = {
   tech: [
     "https://traxx020.ice.infomaniak.ch/traxx020-low.mp3",
@@ -22,7 +22,7 @@ const radioCategories = {
     "http://spoonradio.ice.infomaniak.ch/spoonradio-hd.mp3",
     "https://vintageradio.ice.infomaniak.ch/vintageradio-high.mp3",
     "https://rockitradio.ice.infomaniak.ch/rockitradio-high.mp3",
-    "https://chmedia.streamabc.net/79-argovia-mp3-192-3024993?sABC=6830752o%231%231748006100264_45137534...",
+    "https://chmedia.streamabc.net/79-argovia-mp3-192-3024993",
     "https://traxx016.ice.infomaniak.ch/traxx016-low.mp3"
   ],
   classical: [
@@ -31,52 +31,51 @@ const radioCategories = {
   ]
 };
 
-// Couleurs spécifiques pour chaque catégorie
 const categoryColors = {
-  tech: 'rgb(0,255,0)',        // Vert pour Tech
-  chill: 'rgb(0,0,255)',       // Bleu pour Chill
-  popRockRnb: 'rgb(255,0,255)', // Magenta pour Pop/Rock/RnB
-  classical: 'rgb(128,0,128)'   // Violet pour Classical
+  tech: 'rgb(0,255,0)',
+  chill: 'rgb(0,0,255)',
+  popRockRnb: 'rgb(255,0,255)',
+  classical: 'rgb(128,0,128)'
 };
+
+function preload() {
+  img1 = loadImage("thumb-1920-351442.jpg");
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  angleMode(DEGREES);
-  imageMode(CENTER);
-  noStroke();
-}
-function setup() {
+  imageMode(CORNER);
   radio = createAudio();
   radio.volume(1);
   radio.hide();
-  
+
   document.getElementById('button-tech').addEventListener('click', () => playRandomRadio('tech'));
   document.getElementById('button-chill').addEventListener('click', () => playRandomRadio('chill'));
   document.getElementById('button-popRockRnb').addEventListener('click', () => playRandomRadio('popRockRnb'));
   document.getElementById('button-classical').addEventListener('click', () => playRandomRadio('classical'));
 }
 
-function playRandomRadio(category) {
-  if (!radioCategories[category]) return;
-  
-  const stations = radioCategories[category];
-  const randomURL = random(stations);
-  
-  radio.elt.src = randomURL;
-  radio.play();
-  
-  console.log(`Now playing [${category}]: ${randomURL}`);
-  
-  // Appliquer la couleur spécifique à la catégorie
-  document.documentElement.style.setProperty('--border-color', categoryColors[category]);
-  
-  // Afficher la catégorie dans la bannière
-  updateBanner(category);
-  
-  document.querySelectorAll('.speaker-small').forEach(speaker => speaker.classList.add('active'));
-
+function draw() {
+  background(img1, 0, 0, width, height); // image plein écran
 }
 
-function updateBanner(category) { //recupère un éléemnt HTML//
+function playRandomRadio(category) {
+  if (!radioCategories[category]) return;
+
+  const stations = radioCategories[category];
+  const randomURL = random(stations);
+
+  radio.elt.src = randomURL;
+  radio.play();
+
+  console.log(`Now playing [${category}]: ${randomURL}`);
+  document.documentElement.style.setProperty('--border-color', categoryColors[category]);
+  updateBanner(category);
+
+  document.querySelectorAll('.speaker-small').forEach(speaker => speaker.classList.add('active'));
+}
+
+function updateBanner(category) {
   const banner = document.getElementById('name-banner');
   const categoryNames = {
     tech: 'ELECTRO',
@@ -84,7 +83,7 @@ function updateBanner(category) { //recupère un éléemnt HTML//
     popRockRnb: 'POP ROCK RNB',
     classical: 'CLASSIC'
   };
-  
+
   if (banner) {
     banner.textContent = categoryNames[category];
     banner.style.color = categoryColors[category];
@@ -93,13 +92,10 @@ function updateBanner(category) { //recupère un éléemnt HTML//
 
 function togglePlay() {
   if (radio && radio.elt.src) {
-    if (radio.elt.paused) {
-      radio.play();
-    } else {
-      radio.pause();
-    }
+    radio.elt.paused ? radio.play() : radio.pause();
   }
 }
-function windowResized () {
-  resizeCanvas (windowWidth, windowHeight)
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
