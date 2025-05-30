@@ -1,0 +1,145 @@
+:root{
+  --border-color: rgb(1,0,0);
+  --primary-color: rgb(60,60,60);
+ - -secondary-color: rgb(122,122,122);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: aliceblue;
+}
+canvas {
+  display: block;
+}
+
+.radio-container * {
+  box-sizing: border-box;
+}
+
+.radio-container {
+  margin: 100px;
+  width: 600px;
+  height: 350px;
+  border: solid 1px var(--border-color);
+  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.radio-top {
+  height: 25%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+  border: solid 1px var(--border-color);
+
+}
+/*taille des deux ronds en haut*/
+.radio-top .round {
+  height: 80%;
+  aspect-ratio: 1/1;
+  border-radius: 1000px;
+  border: solid 1px var(--border-color);
+}
+/*taille du rectangle en haut*/
+.radio-top .banner {
+  height: 80%;
+  width: 70%;
+  border: solid 1px var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*taille de la fonte du texte*/
+  font-size: 40px;
+  font-family: helvetica;
+}
+
+.radio-left, .radio-right {
+  height: 75%;
+  width: 40%;
+  display: flex;
+  position: relative;
+  border: solid 1px var(--border-color);
+
+}
+
+.radio-left .speaker-big,
+.radio-right .speaker-big {
+  position: absolute;
+  width: 90%;
+  inset: 5%;
+  aspect-ratio: 1/1;
+  border-radius: 1000px;
+  border: solid 1px var(--border-color);
+}
+
+.radio-left .speaker-medium,
+.radio-right .speaker-medium {
+  position: absolute;
+  width: 80%;
+  inset: 10%;
+  aspect-ratio: 1/1;
+  border-radius: 1000px;
+  border: solid 1px var(--border-color);
+}
+
+.radio-left .speaker-small,
+.radio-right .speaker-small {
+  position: absolute;
+  width: 50%;
+  inset: 25%;
+  aspect-ratio: 1/1;
+  border-radius: 1000px;
+  border: solid 1px var(--border-color);
+}
+/*aniamtion des enceintes*/
+.radio-left .speaker-small.active,
+.radio-right .speaker-small.active {
+  animation: 0.7s infinite speaker-bounce;
+}
+/*key frame des rond qui bougent-> marche comme sur blender*/
+@keyframes speaker-bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.radio-center {
+  height: 75%;
+  width: 20%;
+  display: flex;
+  flex-direction: column;/*colum cest de haut en bas --> voir le site css tricks*/
+  flex-wrap: no-wrap;
+  align-items: center;
+  justify-content: space-around;
+  border: solid 1px var(--border-color);
+
+}
+
+.radio-center .button {
+  height: 20%;
+  aspect-ratio: 1/1;
+  border: solid 1px var(--border-color);
+}
+
+#button-tech {
+  border-color:rgb(0,255,0);
+}
+#button-chill {
+  border-color:rgb(0,0,255);
+}
+#button-popRockRnb{
+  border-color:rgb(255,0,255);
+}
+#button-classical{
+  border-color:rgb(128,0,128);
+}
